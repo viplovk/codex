@@ -5,10 +5,7 @@ import { ArrowDownRight, ArrowUpRight, Code2, Github, Instagram, Linkedin, Mail,
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import dynamic from 'next/dynamic';
-
-const HeroScene = dynamic(() => import('@/components/HeroScene'), { ssr: false });
-const SplineScene = dynamic(() => import('@/components/SplineScene'), { ssr: false });
+import EditorialHero from '@/components/EditorialHero';
 
 const projects = [
   {
@@ -104,35 +101,29 @@ export default function Home() {
       <div className={`loader ${loaded ? 'loader--done' : ''}`}><span>V</span><div className="loader-line" /></div>
       <div className="grain" />
       <nav className="nav">
-        <a href="#top" className="logo" onClick={closeMenu}>V<span>.</span></a>
+        <a href="#top" className="logo" onClick={closeMenu}>
+          VIPLOV<span className="ml-1.5 opacity-60">/VK.001</span>
+        </a>
         <div className="nav-links">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="#work">/WORK</a>
+          <a href="#about">/ABOUT</a>
+          <a href="#contact">/CONTACT</a>
         </div>
         <button className="menu-button" onClick={() => setMenu(!menu)} aria-label="Toggle navigation">
           {menu ? <X/> : <Menu/>}
         </button>
       </nav>
       <div className={`mobile-menu ${menu ? 'open' : ''}`}>
-        <a onClick={closeMenu} href="#work">Work</a>
-        <a onClick={closeMenu} href="#about">About</a>
-        <a onClick={closeMenu} href="#contact">Contact</a>
+        <a onClick={closeMenu} href="#work">/WORK</a>
+        <a onClick={closeMenu} href="#about">/ABOUT</a>
+        <a onClick={closeMenu} href="#contact">/CONTACT</a>
       </div>
 
-      <section id="top" className="hero">
-        <SplineScene />
-        <HeroScene />
-        <div className="hero-copy">
-          <p className="eyebrow hero-kicker"><span /> Viplov Kashyap · Delhi, IN</p>
-          <h1><span>Crafting</span><span>digital <em>futures.</em></span></h1>
-          <div className="hero-bottom">
-            <p>A Computer Science student exploring the intersection of thoughtful interfaces, intelligent systems, and real-world impact.</p>
-            <MagneticLink href="#work" className="round-link">Explore work <ArrowDownRight /></MagneticLink>
-          </div>
-        </div>
-        <p className="scroll-note">SCROLL TO EXPLORE <MoveRight /></p>
-      </section>
+      <EditorialHero onNavigate={(id) => {
+        closeMenu();
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }} />
 
       <section id="work" className="projects section">
         <div className="section-head reveal">
